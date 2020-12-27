@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Http Status Cats</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>    
+<section id="allCats">
+<script id="catsList" type="text/x-handlebars-template">
+    {{#each cats}}
+        <li>            
+            <img src="images/{{this.imageLocation}}.jpg" width="250" height="250" alt="Card image cap">
+            <div class="info">
+                <button class="showBtn" id="button" onclick="revealDetails({{this.id}})">Show status code</button>
+                <div class="status" style="display: none" id="{{this.id}}">
+                    <h4>Status Code: {{this.statusCode}}</h4>
+                    <p>{{this.statusMessage}}</p>
+                </div>
+            </div>
+        </li>
+    {{/each}}
+</script>
+</section>
+<script src="catSeeder.js"></script>
+<script type="text/javascript">
+    var templateInfo = document.getElementById("catsList").innerHTML;
+    // console.log(templateInfo)
+    var templateX = Handlebars.compile(templateInfo);
+    var templateData = templateX({cats});
+    let newList = document.createElement("ul");
+    // console.log(newLis)
+    newList.innerHTML += templateData;
+    let showData = document.getElementById("allCats");
+    showData.appendChild(newList);
+</script>
+<script src="template.js"></script>
+</body>
+</html>
